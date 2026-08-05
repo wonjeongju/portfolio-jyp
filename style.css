@@ -426,9 +426,52 @@ section + section { border-top: 1px solid var(--hairline); }
 }
 .foot__links a:hover { text-decoration-color: var(--marker); }
 
-/* ---- 인쇄 ------------------------------------------------------------ */
+/* ---- 인쇄 (파일 제출용 PDF) ------------------------------------------ */
 @media print {
-  .bar { position: static; backdrop-filter: none; }
-  .feature__player { display: none; }
-  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; }
+  @page { size: A4; margin: 14mm 12mm; }
+
+  /* 형광펜과 사진이 인쇄에서 날아가지 않게 한다 — 이 사이트의 정체성이다 */
+  body, .mk, .feature__player, .feature__play, .feature__cta, .brands li {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body { font-size: 10.5pt; line-height: 1.6; }
+
+  .bar {
+    position: static;
+    backdrop-filter: none;
+    background: transparent;
+  }
+
+  .mk { animation: none; background-size: 100% 100%; }
+
+  section {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    max-width: none;
+  }
+  .foot { padding-left: 0; padding-right: 0; }
+
+  /* 항목이 페이지 경계에서 잘리지 않게 */
+  .feature, .reel__i, .shots figure, .cv__l > div { break-inside: avoid; }
+  .h2 { break-after: avoid; }
+
+  .feature__player { max-width: 210px; }
+  .feature__play { display: none; }
+
+  .shots { grid-template-columns: repeat(2, 1fr); }
+
+  /* 링크는 종이에서 눌리지 않으므로 주소를 노출한다 */
+  .lnk::after,
+  .note a::after,
+  .foot__links a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.72em;
+    font-weight: 400;
+    word-break: break-all;
+  }
+  .lnk span { display: none; }
 }
