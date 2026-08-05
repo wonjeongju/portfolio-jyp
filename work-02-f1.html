@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Formula 1 — 주원정 케이스 파일</title>
+    <meta
+      name="description"
+      content="F1 팝업 캠페인 기획서 · 프로토타입. 원안·논리구조·대본·가이드북·프로토타입을 본인이 직접 진행했습니다."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Formula 1 — F1 팝업 캠페인" />
+    <meta property="og:description" content="F1 팝업 캠페인 · 원안·논리구조·대본·가이드북·프로토타입 = 본인" />
+    <meta property="og:image" content="./assets/og-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="./assets/og-cover.png" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23fbfbfa'/%3E%3Crect%20x='6'%20y='19'%20width='20'%20height='7'%20fill='%23ffd400'/%3E%3Ctext%20x='16'%20y='24'%20font-family='Helvetica,Arial,sans-serif'%20font-size='18'%20font-weight='800'%20text-anchor='middle'%20fill='%23131313'%3EJ%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">본문으로 건너뛰기</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="./index.html">
+          <span>주원정</span><span class="en">Joo&nbsp;Wonjeong</span>
+        </a>
+        <nav class="site-nav" aria-label="주요 섹션">
+          <ul>
+            <li><a href="./index.html#cases">케이스</a></li>
+            <li><a href="./index.html#works">프로젝트</a></li>
+            <li><a href="./index.html#more">수상</a></li>
+            <li><a href="./index.html#about">소개</a></li>
+            <li><a href="./index.html#contact">연락처</a></li>
+          </ul>
+        </nav>
+      </div>
+      <nav class="chipbar chipbar--detail" aria-label="바로가기">
+        <ul>
+          <li><a href="./index.html#works">← 프로젝트 목록</a></li>
+          <li><a href="./index.html">홈</a></li>
+          <li><a href="./index.html#contact">연락처</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <div class="detail-hero wrap">
+        <a class="back-link" href="./index.html#works"
+          ><span aria-hidden="true">←</span> 프로젝트 목록</a
+        >
+        <h1>Formula 1</h1>
+        <p class="subtitle">화면 밖으로 나온 F1 · 팝업 캠페인</p>
+        <div class="detail-meta">
+          <span>교내 수업 팀 프로젝트</span>
+          <span>원안 · 논리구조 · 대본 · 가이드북 · 프로토타입 = 본인</span>
+        </div>
+      </div>
+
+      <div class="detail-body wrap">
+        <section class="f1 on-dark" aria-label="F1 팝업 캠페인">
+          <div class="prose mt-s4">
+            <p>
+              영화 <span lang="en">F1</span>이 산업 수익에 약 <mark>200억 원</mark>을
+              기여했습니다<span class="src-note">(글로벌오토뉴스, 2025.08)</span>. 팬덤은 영화를 보는 것에서 끝나지 않고, 화면 밖에서도 경험하고
+              싶어 할 것이라고 봤습니다.
+            </p>
+
+            <p>
+              <b>개인 과제로 시작한 아이디어가 팀 프로젝트로 채택됐습니다.</b> 초안에서는
+              기획 의도가 충분히 전달되지 않아, 논리 구조와 발표 스토리라인을 다시
+              설계했습니다.
+            </p>
+            <p>
+              팝업 동선을 메인 로비(시뮬레이터·우승 예측 존)에서 라이브 레이스 라운지로
+              설계했고, 옐로우·레드 플래그·피트스톱 같은 F1 신호 체계를 공간 연출 언어로
+              바꿨습니다. 닌텐도·맥도날드·택시 브랜드 제휴
+              <mark>가이드북</mark> 4종을 만들었습니다.
+            </p>
+            <p>
+              공간 경험은 슬라이드로 전달되지 않는다고 판단해서, 방문자가 팝업을 가상으로
+              걸어 다니는 <b>인터랙티브 프로토타입</b>을 직접 만들었습니다.
+            </p>
+          </div>
+
+          <!-- Film strip: 핵심 전략 슬라이드만 큐레이션 (표지·전략·컨셉·신호체계·동선)
+               data-doc-* = 덱 뷰어(D1) 매니페스트. 22장을 숨은 <img>로 심지 않고
+               뷰어를 열 때 해당 장만 받아온다. -->
+          <div
+            class="filmstrip-shell"
+            data-filmstrip
+            data-doc-base="./assets/proposals/f1-deck-"
+            data-doc-count="22"
+            data-doc-title="F1 팝업 캠페인 기획 덱"
+            data-doc-note="교내 수업 팀 프로젝트 · 원안·논리구조·대본·가이드북·프로토타입 = 본인"
+            data-doc-caps='{"1":"표지 — 국내 F1 부흥을 위한 크리에이티브 기획서","13":"핵심 전략 — 호기심→캐주얼→코어 팬 단계 사이에 ‘경험의 다리’를 놓는다","15":"캠페인 컨셉 — ‘FIT IN!’ 2030이 출발 문턱을 넘어 F1에 스며들도록","20":"신호 체계 번역 — 타이어 교체·출발 신호·피트스톱을 닌텐도 스위치 스포츠 체험으로","21":"공간 동선 — 엘리베이터·시뮬레이션·예측 콘텐츠·관람 시식존으로 이어지는 팝업 존 구성"}'
+          >
+            <div class="filmstrip-head">
+              <div class="filmstrip-headl">
+                <span class="filmstrip-counter" aria-live="polite">1 / 5</span>
+                <button class="deck-all" type="button" data-doc-start="1">
+                  전체 22장 보기
+                </button>
+              </div>
+              <div class="filmstrip-nav">
+                <button class="fs-prev" type="button" aria-label="이전 슬라이드">‹</button>
+                <button class="fs-next" type="button" aria-label="다음 슬라이드">›</button>
+              </div>
+            </div>
+            <p class="filmstrip-hint">
+              22장 기획 덱에서 전략을 드러내는 5장만 골랐습니다. 가로 스크롤 또는 ←/→
+              방향키로 넘기고, 슬라이드를 누르면 그 장부터 22장 전체를 넘겨볼 수 있습니다.
+            </p>
+            <div class="filmstrip">
+          <figure>
+            <button class="zoom" type="button" data-doc-start="1" data-full="./assets/proposals/f1-deck-1.webp" data-cap="표지 — 국내 F1 부흥을 위한 크리에이티브 기획서 (교내 수업 팀 프로젝트)">
+              <img src="./assets/proposals/f1-deck-1.webp" width="860" height="484" loading="lazy" alt="F1 팝업 캠페인 기획 덱 표지. 다크 배경에 F1 경주차와 ‘F1에 스며들도록 다리를 놔줄게 / 국내 F1 부흥을 위한 크리에이티브 기획서’ 문구가 있다." />
+            </button>
+          </figure>
+          <figure>
+            <button class="zoom" type="button" data-doc-start="13" data-full="./assets/proposals/f1-deck-13.webp" data-cap="핵심 전략 — 호기심→캐주얼→코어 팬 단계 사이에 ‘경험의 다리’를 놓는다">
+              <img src="./assets/proposals/f1-deck-13.webp" width="860" height="484" loading="lazy" alt="기획 덱 전략 슬라이드. 호기심 단계·캐주얼 단계·코어 단계 사이를 잇는 다리 그래픽과 ‘단계 사이에 다리를 놓아줌으로써 F1에 대한 지식과 경험을 서서히 쌓도록 한다’ 문구가 있다." />
+            </button>
+          </figure>
+          <figure>
+            <button class="zoom" type="button" data-doc-start="15" data-full="./assets/proposals/f1-deck-15.webp" data-cap="캠페인 컨셉 — ‘FIT IN!’ 2030이 출발 문턱을 넘어 F1에 스며들도록">
+              <img src="./assets/proposals/f1-deck-15.webp" width="860" height="484" loading="lazy" alt="기획 덱 컨셉 슬라이드. 체커드 플래그 배경 위에 큰 ‘FIT IN!’ 타이포와 ‘2030이 출발의 문턱을 넘어 F1에 스며들 수 있도록’ 문구가 있다." />
+            </button>
+          </figure>
+          <figure>
+            <button class="zoom" type="button" data-doc-start="20" data-full="./assets/proposals/f1-deck-20.webp" data-cap="신호 체계 번역 — F1의 타이어 교체·출발 신호·피트스톱 규칙을 닌텐도 스위치 스포츠 체험으로">
+              <img src="./assets/proposals/f1-deck-20.webp" width="860" height="484" loading="lazy" alt="기획 덱 실행 슬라이드. 닌텐도 스위치 스포츠에 F1 피트크루 모드를 추가해 타이어 교체·출발 신호·피트스톱을 게임으로 직접 수행하는 목업 4컷이 있다." />
+            </button>
+          </figure>
+          <figure>
+            <button class="zoom" type="button" data-doc-start="21" data-full="./assets/proposals/f1-deck-21.webp" data-cap="공간 동선 — 엘리베이터·운전 시뮬레이션·예측 콘텐츠·관람 시식존으로 이어지는 팝업 존 구성">
+              <img src="./assets/proposals/f1-deck-21.webp" width="860" height="484" loading="lazy" alt="기획 덱 팝업스토어 슬라이드. 엘리베이터·운전 시뮬레이션·예측 콘텐츠·관람 시식존 4개 존 카드와 하단 ‘F1 START’ 입장 버튼이 있다." />
+            </button>
+          </figure>
+            </div>
+          </div>
+
+          <p class="block-label block-label--spaced">
+            브랜드 제휴 가이드북 4종 — 표지를 누르면 전체 페이지가 열립니다
+          </p>
+          <div class="gallery gallery--wide gallery--decks">
+            <figure
+              class="evidence deckcard"
+              data-doc-base="./assets/proposals/f1-guide-nintendo-"
+              data-doc-count="7"
+              data-doc-title="닌텐도 스위치 스포츠 — F1 피트크루 모드 제휴 가이드북"
+              data-doc-note="콘셉트 비주얼 · AI 생성"
+            >
+              <button class="zoom" type="button" data-doc-start="1">
+                <img src="./assets/proposals/f1-guide-nintendo.webp" width="1000" height="750" loading="lazy" alt="닌텐도 스위치 스포츠 F1 제휴 가이드북 표지. 볼링·축구·테니스·F1 레이싱 캐릭터와 ‘OFFICIAL GUIDE F1 레이싱’ 문구가 있다." />
+                <span class="deck-count" aria-hidden="true">7장</span>
+              </button>
+              <button class="deck-all" type="button" data-doc-start="1">
+                전체 7장 보기
+              </button>
+            </figure>
+            <figure
+              class="evidence deckcard"
+              data-doc-base="./assets/proposals/f1-guide-mcdonald-"
+              data-doc-count="6"
+              data-doc-title="맥도날드 드라이브 스루 — 피트스톱 콜라보 가이드북"
+              data-doc-note="콘셉트 비주얼 · AI 생성"
+            >
+              <button class="zoom" type="button" data-doc-start="1">
+                <img src="./assets/proposals/f1-guide-mcdonald.webp" width="1000" height="750" loading="lazy" alt="맥도날드 F1 제휴 가이드북 표지. 드라이브 스루를 F1 피트스톱으로 연출한 목업." />
+                <span class="deck-count" aria-hidden="true">6장</span>
+              </button>
+              <button class="deck-all" type="button" data-doc-start="1">
+                전체 6장 보기
+              </button>
+            </figure>
+            <figure
+              class="evidence deckcard"
+              data-doc-base="./assets/proposals/f1-guide-taxi-"
+              data-doc-count="7"
+              data-doc-title="F1 택시 — 일상 이동을 레이스 경험으로 잇는 가이드북"
+              data-doc-note="콘셉트 비주얼 · AI 생성"
+            >
+              <button class="zoom" type="button" data-doc-start="1">
+                <img src="./assets/proposals/f1-guide-taxi.webp" width="1000" height="750" loading="lazy" alt="택시 브랜드 F1 제휴 가이드북 표지 목업." />
+                <span class="deck-count" aria-hidden="true">7장</span>
+              </button>
+              <button class="deck-all" type="button" data-doc-start="1">
+                전체 7장 보기
+              </button>
+            </figure>
+            <figure
+              class="evidence deckcard"
+              data-doc-base="./assets/proposals/f1-guide-popup-"
+              data-doc-count="9"
+              data-doc-title="F1 팝업 공간 — 존 구성·동선 연출 가이드북"
+              data-doc-note="콘셉트 비주얼 · AI 생성"
+            >
+              <button class="zoom" type="button" data-doc-start="1">
+                <img src="./assets/proposals/f1-guide-popup.webp" width="1000" height="750" loading="lazy" alt="F1 팝업 공간 연출 가이드북 표지 목업." />
+                <span class="deck-count" aria-hidden="true">9장</span>
+              </button>
+              <button class="deck-all" type="button" data-doc-start="1">
+                전체 9장 보기
+              </button>
+            </figure>
+          </div>
+
+          <!-- Prototype video -->
+          <figure class="videobox mt-s5">
+            <video
+              controls
+              preload="none"
+              width="1000"
+              height="567"
+              poster="./assets/proposals/f1-proto-poster.webp"
+            >
+              <source src="./assets/proposals/f1-proto.mp4" type="video/mp4" />
+              이 브라우저는 동영상을 지원하지 않습니다.
+            </video>
+          </figure>
+
+        </section>
+
+        <nav class="casenav" aria-label="케이스 이동">
+          <a class="prev" href="./work-04-taiwan.html">
+            <span class="dir">← 이전</span>
+            <span class="t">YT 4.7M Views</span>
+          </a>
+          <a class="next" href="./work-03-caprisun.html">
+            <span class="dir">다음 →</span>
+            <span class="t">CAPRIZEN</span>
+          </a>
+          <a class="casenav-back" href="./index.html">← 홈으로 돌아가기</a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <a class="brand" href="./index.html">
+          <span>주원정</span><span class="en">Joo&nbsp;Wonjeong</span>
+        </a>
+        <ul class="footer-nav">
+          <li><a href="./index.html#cases">케이스</a></li>
+          <li><a href="./index.html#works">프로젝트</a></li>
+          <li><a href="./index.html#more">수상</a></li>
+          <li><a href="./index.html#about">소개</a></li>
+          <li><a href="./index.html#contact">연락처</a></li>
+        </ul>
+        <div class="footer-meta">
+          <span>© 2026 주원정 Joo Wonjeong</span>
+          <span>Case File</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

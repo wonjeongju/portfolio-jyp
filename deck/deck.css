@@ -1,0 +1,590 @@
+/* =====================================================================
+   주원정 · AE 케이스 파일 — 슬라이드 덱 전용 스타일시트
+   DECK-PLAN.md 전문 기준 구현. style.css는 import하지 않는다(독립 시트).
+   슬라이드 내부 단위는 전부 px 고정 — vw/vh/svh/clamp()/%(이미지 object-fit,
+   자기 박스 기준 clip-path·배경 좌표 제외) 사용 금지.
+   ===================================================================== */
+
+/* ---- Tokens — style.css에서 값 그대로 이어받음 (변경 금지) ------------- */
+:root {
+  --marker: #ffd400;
+  --marker-stroke: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 56' preserveAspectRatio='none'%3E%3Cpath fill='%23ffd400' fill-opacity='0.85' d='M8 14C40 8 90 6 130 8 175 10 215 8 233 12L236 40C200 47 150 50 105 48 65 46 30 50 7 44Z'/%3E%3Cpath fill='%23ffd400' fill-opacity='0.5' d='M20 22C70 18 150 17 225 20L224 34C160 38 70 39 21 35Z'/%3E%3C/svg%3E");
+  --page: #faf9f4;
+  --ink: #131313;
+  --ink-2: #565550;
+  --hairline: #e8e6de;
+
+  /* 고정 px 스페이싱 (s6 이상 폐기 — 720px 캔버스에서 쓸 일 없음) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 16px;
+  --s4: 24px;
+  --s5: 40px;
+
+  /* 타이포 스케일 — 전부 px 고정 */
+  --fs-display: 64px;
+  --fs-h1: 40px;
+  --fs-h2: 36px;
+  --fs-stat-xl: 96px;
+  --fs-stat: 44px;
+  --fs-bluf: 21px;
+  --fs-body: 17px;
+  --fs-label: 14px;
+  --fs-kicker: 12px;
+  --fs-caption: 12px;
+  --fs-footer: 11px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color: var(--ink);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol, li, figure, dl, dt, dd {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img { display: block; }
+
+a { color: inherit; }
+
+/* ---- Highlighter mark — 정적 고정 (슬라이드당 1회) --------------------- */
+mark {
+  background-color: transparent;
+  background-image: var(--marker-stroke);
+  background-repeat: no-repeat;
+  background-position: 0 90%;
+  background-size: 100% 58%;
+  color: inherit;
+  padding: 0 0.14em;
+  margin: 0 -0.06em;
+  font-weight: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* ---- Screen preview vs print (§6-3) ----------------------------------- */
+@media screen {
+  body { background: #d9d6cc; margin: 0; padding: 40px 0; }
+  .slide { margin: 0 auto 32px; box-shadow: 0 8px 30px rgba(19, 19, 19, 0.18); }
+}
+@media print {
+  body { background: none; padding: 0; }
+  .slide { margin: 0; box-shadow: none; transform: none !important; }
+}
+
+/* ---- Print sheet (§6-2) ------------------------------------------------ */
+@page {
+  size: 1280px 720px;
+  margin: 0;
+}
+
+.slide {
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  page-break-after: always;
+  break-inside: avoid;
+  position: relative;
+  background: var(--page);
+}
+.slide:last-child {
+  page-break-after: auto;
+}
+
+/* ---- Content frame: 상56 하48 좌우64 → 1152×616 ------------------------ */
+.content {
+  position: absolute;
+  left: 64px;
+  top: 56px;
+  width: 1152px;
+  height: 616px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 74px);
+  column-gap: 24px;
+}
+
+/* ---- Kicker — 형광펜 스와치 + 대문자 라벨 ------------------------------- */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-kicker);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.kicker::before {
+  content: "";
+  width: 20px;
+  height: 9px;
+  background: var(--marker);
+  transform: skewX(-14deg);
+  flex-shrink: 0;
+}
+
+/* ---- Running footer — 표지·엔딩(1,15) 제외 13개 장 --------------------- */
+.footer {
+  position: absolute;
+  left: 64px;
+  top: 684px;
+  width: 1152px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--fs-footer);
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+/* ---- Ink hairlines ------------------------------------------------------ */
+.rule-ink { border: 0; border-top: 1px solid var(--ink); }
+.rule-hair { border: 0; border-top: 1px solid var(--hairline); }
+
+/* ---- Evidence figure — 그림자 축소 + 테이프 + 캡션 --------------------- */
+.evidence {
+  position: relative;
+  display: block;
+}
+.evidence .tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 62px;
+  height: 19px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: color-mix(in srgb, var(--marker) 42%, rgba(255, 255, 255, 0.4));
+  box-shadow: 0 1px 2px rgba(19, 19, 19, 0.08);
+  z-index: 2;
+}
+.evidence .frame {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(19, 19, 19, 0.07),
+    0 4px 12px rgba(19, 19, 19, 0.08);
+  transform: rotate(-0.5deg);
+}
+.evidence .frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.evidence.contain .frame img { object-fit: contain; background: #101010; }
+.evidence figcaption {
+  margin-top: 8px;
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+/* ---- Phone mockup — style.css 636~675행 좌표 그대로 --------------------- */
+.phone {
+  position: relative;
+  flex-shrink: 0;
+}
+.phone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: url("../assets/mockup/iphone-frame.png") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.phone .screen {
+  position: absolute;
+  left: 8.297%;
+  top: 3.607%;
+  width: 82.751%;
+  height: 90.820%;
+  overflow: hidden;
+  background: #101010;
+}
+.phone .screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+.phone--aera::after { background-image: url("../assets/mockup/iphone-aera.png"); }
+.phone--aera .screen {
+  left: 5.425%;
+  top: 2.018%;
+  width: 89.387%;
+  height: 95.404%;
+}
+.phone--aera .screen img { object-fit: cover; }
+
+/* =====================================================================
+   T1 — 표지형 (슬라이드 1)
+   ===================================================================== */
+.t1 .content { display: flex; flex-direction: column; height: 616px; }
+.t1 .filerow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ink);
+}
+.t1 .tab {
+  background: var(--marker);
+  clip-path: polygon(0 100%, 9px 0, calc(100% - 9px) 0, 100% 100%);
+  padding: 7px 22px 6px;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+.t1 .h1 {
+  margin-top: 56px;
+  font-size: var(--fs-display);
+  line-height: 1.08;
+  font-weight: 870;
+  letter-spacing: -0.02em;
+}
+.t1 .sub {
+  margin-top: 28px;
+  max-width: 900px;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.t1 .spacer { flex: 1; }
+.t1 .ledger {
+  border-top: 1px solid var(--ink);
+  padding-top: 20px;
+  display: flex;
+  gap: 64px;
+  align-items: flex-end;
+}
+.t1 .ledger-item .num { display: block; font-size: 56px; line-height: 1; }
+.t1 .ledger-item .label { margin-top: 6px; font-size: var(--fs-label); font-weight: 700; color: var(--ink-2); }
+.t1 .colophon {
+  margin-left: auto;
+  align-self: flex-end;
+  font-size: var(--fs-footer);
+  color: var(--ink-2);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* =====================================================================
+   T2 — 인덱스형 (슬라이드 2)
+   ===================================================================== */
+.t2 .content { display: flex; flex-direction: column; }
+.t2 .h1 { margin-top: 14px; font-size: var(--fs-h1); line-height: 1.15; font-weight: 870; }
+.t2 .cols { margin-top: 32px; display: flex; gap: 24px; flex: 1; }
+.t2 .col-cases { width: 662px; }
+.t2 .col-projects { width: 466px; }
+.t2 .col-head {
+  font-size: var(--fs-footer);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ink);
+  margin-bottom: 4px;
+}
+.t2 .idx-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.t2 .idx-row .lead { font-size: var(--fs-body); font-weight: 700; }
+.t2 .idx-row .lead .no { color: var(--ink-2); font-weight: 800; margin-right: 8px; }
+.t2 .idx-row .stat { font-size: 21px; font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.t2 .proj-row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: var(--fs-body);
+  font-weight: 700;
+}
+.t2 .proj-row .num { font-size: 17px; }
+.t2 .foot-line {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+/* =====================================================================
+   T3 — 케이스형 (슬라이드 3·5·7)
+   ===================================================================== */
+.t3 .content { display: flex; flex-direction: column; }
+.t3 .body-row { margin-top: 28px; display: flex; gap: 24px; flex: 1; }
+.t3 .text-col { width: 662px; }
+.t3 .evidence-col { width: 466px; display: flex; flex-direction: column; gap: 20px; }
+.t3 .h1, .t4 .h1 { margin-top: 14px; font-size: var(--fs-h1); line-height: 1.15; font-weight: 870; }
+.t3 .bluf {
+  margin-top: 22px;
+  font-size: var(--fs-bluf);
+  line-height: 1.5;
+  font-weight: 600;
+}
+.t3 .bullets { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+.t3 .bullets li {
+  position: relative;
+  padding-left: 18px;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.t3 .bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  background: var(--ink);
+  border-radius: 50%;
+}
+.t3 .evidence-col .evidence .frame { height: 190px; }
+/* 이미지 1장뿐인 케이스(슬라이드 5·7)는 프레임을 키워 무게를 맞춘다 */
+.t3 .evidence-col.solo .evidence .frame { height: 380px; }
+
+/* =====================================================================
+   T4 — 지표결과형 (슬라이드 4·6·8·9)
+   ===================================================================== */
+.t4 .content { display: flex; flex-direction: column; }
+.t4 .body-row { margin-top: 24px; display: flex; gap: 24px; flex: 1; }
+.t4 .text-col { width: 662px; display: flex; flex-direction: column; }
+.t4 .evidence-col { width: 466px; }
+.t4 .stat-band {
+  margin-top: 24px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  display: flex;
+  gap: 40px;
+}
+.t4 .stat .num { display: block; font-size: var(--fs-stat); line-height: 1; }
+.t4 .stat .label { margin-top: 8px; font-size: var(--fs-label); font-weight: 700; color: var(--ink-2); }
+.t4 .punch {
+  margin-top: 24px;
+  font-size: var(--fs-bluf);
+  font-weight: 600;
+  line-height: 1.5;
+}
+/* 슬라이드 4·6 — 폰 목업 증거: 가운데 정렬 + 고정 폰 치수(458:915 비율) */
+.t4 .evidence-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.t4 .evidence-col .phone { width: 240px; height: 480px; }
+.t4 .evidence-col figcaption { text-align: center; max-width: 320px; margin-inline: auto; }
+
+/* 변형 a: 슬라이드 8 — 증거를 하단 가로 와이드로.
+   텍스트 6행(헤드라인 2줄+스탯밴드+브랜드행×2+인사이트) + 와이드 증거까지
+   616px 예산 안에 넣어야 하므로 T4 기본형보다 여백을 조인다. */
+.t4.variant-a .body-row { flex-direction: column; gap: 0; }
+.t4.variant-a .text-col { width: 1152px; }
+.t4.variant-a .stat-band { padding-top: 14px; padding-bottom: 14px; }
+.t4.variant-a .evidence-wide { margin-top: 16px; }
+/* xhs-income.webp 원본 1169×418(비율 2.797) — 프레임을 원본 비율에 맞춰
+   중앙 배치해야 좌우 레터박스 없이 숫자가 판독 가능한 크기로 보인다 */
+.t4.variant-a .evidence-wide .evidence .frame { width: 559px; height: 200px; margin: 0 auto; }
+.t4.variant-a .evidence-wide .evidence.contain .frame img { background: #fff; }
+.t4.variant-a .evidence-wide figcaption { margin-top: 6px; text-align: center; }
+.t4.variant-a .brand-row {
+  margin-top: 14px;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.t4.variant-a .local-row {
+  margin-top: 6px;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.t4.variant-a .punch { margin-top: 16px; }
+
+/* 변형 b: 슬라이드 9 — 이미지 없음, 대형 숫자 */
+.t4.variant-b .evidence-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.t4.variant-b .stat-xl .num {
+  display: block;
+  font-size: var(--fs-stat-xl);
+  line-height: 0.95;
+  font-weight: 800;
+}
+.t4.variant-b .stat-xl .label { margin-top: 10px; font-size: var(--fs-label); font-weight: 700; color: var(--ink-2); }
+.t4.variant-b .meta { margin-top: 10px; font-size: var(--fs-body); color: var(--ink-2); }
+.t4.variant-b .bullets { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.t4.variant-b .bullets li { position: relative; padding-left: 18px; font-size: var(--fs-body); line-height: 1.45; }
+.t4.variant-b .bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: var(--ink);
+  border-radius: 50%;
+}
+.t4.variant-b .result-line { margin-top: 16px; font-size: var(--fs-bluf); font-weight: 600; }
+
+/* =====================================================================
+   T5 — 갤러리형 (슬라이드 10·11)
+   ===================================================================== */
+.t5 .content { display: flex; flex-direction: column; }
+.t5 .meta-row { margin-top: 4px; font-size: var(--fs-body); font-weight: 700; color: var(--ink-2); }
+.t5 .head-row { margin-top: 18px; display: flex; gap: 24px; }
+.t5 .h1 { width: 466px; font-size: var(--fs-h2); line-height: 1.15; font-weight: 870; }
+.t5 .body-text { width: 662px; font-size: 16px; line-height: 1.55; color: var(--ink); }
+.t5 .gallery-big { margin-top: 20px; display: flex; gap: 24px; }
+.t5 .gallery-big .evidence { width: 368px; }
+.t5 .gallery-big .evidence .frame { height: 207px; }
+.t5 .gallery-label { margin-top: 10px; font-size: var(--fs-footer); font-weight: 700; color: var(--ink-2); }
+.t5 .gallery-small { margin-top: 12px; display: flex; gap: 16px; }
+.t5 .gallery-small .evidence { width: 168px; }
+.t5 .gallery-small .evidence .frame { height: 94px; }
+
+/* 변형: 슬라이드 11 — 좌 대형 1 + 우 소형 2 */
+.t5.variant .gallery-big { align-items: flex-start; }
+.t5.variant .gallery-big .evidence.big { width: 564px; }
+.t5.variant .gallery-big .evidence.big .frame { height: 320px; }
+.t5.variant .gallery-big .small-stack { display: flex; flex-direction: column; gap: 16px; width: 564px; }
+.t5.variant .gallery-big .small-stack .evidence { width: 564px; }
+.t5.variant .gallery-big .small-stack .evidence .frame { height: 152px; }
+
+/* =====================================================================
+   T6 — 앱 쇼케이스형 (슬라이드 12)
+   ===================================================================== */
+.t6 .content { display: flex; flex-direction: column; }
+.t6 .h1 { margin-top: 6px; font-size: var(--fs-h2); line-height: 1.15; font-weight: 870; }
+.t6 .body-row { margin-top: 22px; display: flex; gap: 40px; flex: 1; }
+.t6 .phones { display: flex; align-items: center; gap: 24px; }
+.t6 .phones .phone { width: 168px; height: 353px; }
+.t6 .phones .phone.lift { transform: translateY(-24px); }
+.t6 .panels { flex: 1; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+.t6 .panel .k { font-size: var(--fs-footer); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+.t6 .panel p { margin-top: 6px; font-size: var(--fs-body); line-height: 1.5; }
+.t6 .foot-lines { margin-top: 20px; font-size: var(--fs-body); color: var(--ink-2); }
+.t6 .foot-lines .connect { margin-top: 6px; font-weight: 600; color: var(--ink); }
+
+/* =====================================================================
+   T7 — 리스트형 (슬라이드 13·14)
+   ===================================================================== */
+.t7 .content { display: flex; flex-direction: column; }
+.t7 .h1 { margin-top: 6px; font-size: var(--fs-h2); line-height: 1.15; font-weight: 870; }
+.t7 .award-list { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.t7 .award-row { display: flex; align-items: center; gap: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--hairline); }
+.t7 .award-row .thumb { width: 96px; height: 60px; flex-shrink: 0; border-radius: 2px; overflow: hidden; box-shadow: 0 1px 2px rgba(19,19,19,.07), 0 4px 12px rgba(19,19,19,.08); }
+.t7 .award-row .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.t7 .award-row .when { width: 90px; flex-shrink: 0; font-size: var(--fs-body); font-weight: 800; font-variant-numeric: tabular-nums; }
+.t7 .award-row .what { font-size: var(--fs-body); line-height: 1.4; }
+.t7 .award-row .what .tag { color: var(--ink-2); font-weight: 600; }
+.t7 .lang-line { margin-top: 8px; padding-top: 18px; border-top: 1px solid var(--ink); font-size: var(--fs-bluf); font-weight: 600; }
+
+/* 변형: 슬라이드 14 — 4단계 가로 프로세스 */
+.t7.process .flow {
+  margin-top: 32px;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.t7.process .flow-step {
+  width: 246px;
+  padding: 20px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: #fff;
+}
+.t7.process .flow-step .n {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  background: var(--ink);
+  color: var(--page);
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 50%;
+}
+.t7.process .flow-step .t { margin-top: 12px; font-size: 17px; font-weight: 800; }
+.t7.process .flow-step .d { margin-top: 8px; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+.t7.process .flow-arrow {
+  width: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--ink-2);
+}
+.t7.process .result-row { margin-top: 28px; display: flex; align-items: baseline; gap: 24px; }
+.t7.process .result-row .num { font-size: var(--fs-stat); }
+.t7.process .result-row .label { font-size: var(--fs-label); font-weight: 700; color: var(--ink-2); }
+.t7.process .transfer-line { margin-top: 18px; font-size: var(--fs-bluf); font-weight: 600; }
+
+/* =====================================================================
+   T8 — 엔딩형 (슬라이드 15)
+   ===================================================================== */
+.t8 .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.t8 .eyebrow { font-size: var(--fs-label); font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
+.t8 .h1 { margin-top: 12px; font-size: var(--fs-display); line-height: 1.08; font-weight: 870; }
+.t8 .name { margin-top: 32px; font-size: 21px; font-weight: 800; }
+.t8 .life-line { margin-top: 10px; font-size: var(--fs-body); color: var(--ink-2); max-width: 760px; }
+.t8 .email { margin-top: 18px; font-size: 21px; font-weight: 800; }
+.t8 .email a { text-decoration: none; border-bottom: 2px solid var(--marker); }
+.t8 .verify { margin-top: 18px; font-size: var(--fs-body); color: var(--ink-2); }
+.t8 .verify a { color: var(--ink); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--ink-2); }
+.t8 .verify .url { display: block; margin-top: 4px; font-size: var(--fs-footer); color: var(--ink-2); }
+.t8 .closing { margin-top: 28px; font-size: var(--fs-body); font-weight: 700; }

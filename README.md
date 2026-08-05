@@ -1,74 +1,49 @@
 # portfolio-jyp
 
-주원정 — **JYP ENTERTAINMENT 지원용 포트폴리오** (1순위 ONE Label 콘텐츠 마케팅 / 2순위 STUDIO J SNS 마케팅)
+**JYP ENTERTAINMENT 지원용 포트폴리오** (1순위 ONE Label 콘텐츠 마케팅 / 2순위 STUDIO J SNS 마케팅)
 
-기존 [portfolio-casefile](https://github.com/wonjeongju/portfolio-casefile)이 "판단 서사" 중심이라면,
-이 버전은 공고의 **"지원자 본인의 작업물이 담긴 포트폴리오"** 요구에 맞춰 **숏폼 실물**을 앞세운다.
-디자인 언어(형광펜 + 종이, Pretendard)는 기존 사이트를 그대로 잇는다.
+[portfolio-casefile](https://github.com/wonjeongju/portfolio-casefile)을 **그대로 가져와 문구만 바꾼** 회사별 버전이다.
+구조·디자인·케이스 구성은 손대지 않는다. 새로 만들지 않는다.
 
----
+## 원본에서 바꾼 것
 
-## 배포
+| 구분 | 원본 | 이 버전 |
+|---|---|---|
+| 직무 라벨 | AE 케이스 파일 / AE 지원 / AE Case File | 콘텐츠 마케팅 케이스 파일 / **JYP ENTERTAINMENT 콘텐츠 마케팅 지원** / Case File |
+| 직무 정의 문장 | "AE의 역할은…" | "콘텐츠 마케터의 역할은…" |
+| 단독 강조 | "혼자 키운 2.6만", "대행사 없이 혼자", "구현 단독", "개인 단독" | 전부 제거 — **혼자·단독·개인 성과를 강조하지 않는다** |
 
-GitHub Pages로 올린다.
+## 제출물
+
+- **URL** — https://wonjeongju.github.io/portfolio-jyp/
+- **파일** — `dist/주원정_포트폴리오_JYP.pdf` (A4)
+
+## PDF 만드는 법
 
 ```bash
-# 1) GitHub에 portfolio-jyp 저장소를 만든 뒤
-git remote add origin https://github.com/wonjeongju/portfolio-jyp.git
-git branch -M main
-git push -u origin main
+python3 -m http.server 8899 &
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless=new --disable-gpu --no-pdf-header-footer \
+  --print-to-pdf="dist/주원정_포트폴리오_JYP.pdf" \
+  --virtual-time-budget=15000 http://localhost:8899/
 ```
 
-그다음 저장소 **Settings → Pages → Source: Deploy from a branch → main / (root)** 로 설정.
-1~2분 뒤 `https://wonjeongju.github.io/portfolio-jyp/` 에서 열린다.
+### 인쇄 CSS에서 조심할 것 (`style.css` 맨 아래 `@media print`)
 
-지원서에는 이 주소를 붙인다.
+실제로 사고가 났던 지점들이라 건드리기 전에 읽을 것.
 
----
+1. **`button.zoom`을 숨기면 안 된다.** 증거 스크린샷이 이 버튼 안에 들어 있어서, 숨기면 폰 목업 화면이 통째로 하얗게 비어 나온다.
+2. **`* { transform: none }`을 걸면 안 된다.** 폰 목업 두 대가 transform으로 겹쳐 있어서, 초기화하면 뒤 기기가 앞 기기에 완전히 가려 화면이 빈다.
+3. **스크롤 구동 애니메이션(`animation-timeline: view()`)은 반드시 죽여야 한다.** 안 그러면 케이스가 opacity 0인 채로 인쇄돼 지면이 빈다.
+4. 페이지 경계는 `break-before: page`로 **케이스 단위로 못 박아** 어중간한 여백을 없앤다.
+
+### 지면 미리보기 (PDF 뷰어 캡처가 안 될 때)
+
+`@media print` 블록을 `@media screen`으로 바꾼 CSS 사본을 만들고, `body{width:188mm}`(A4 − 좌우 여백)로 두면 브라우저에서 지면을 그대로 눈으로 볼 수 있다.
 
 ## 제출 전 점검
 
-- [ ] `https://wonjeongju.github.io/portfolio-jyp/` 접속 확인
-- [ ] 샤오홍슈 링크 3개가 아직 살아 있는지 클릭 확인
-      (앱 공유 링크에는 만료 토큰 `xsec_token`이 붙어 있어 시간이 지나면 죽을 수 있다.
-       죽었으면 앱에서 다시 "공유 → 링크 복사"해서 `index.html`의 `xhslink.cn` 주소를 교체)
-- [ ] 특수문자 깨짐 확인: `思念`, `种草`, `×`
-- [ ] 자소서 수치와 일치하는지 대조
-
-## 수치 표기 규칙 (master DB 기준 — 바꾸지 말 것)
-
-| 항목 | 정확한 표기 | 금지 |
-|---|---|---|
-| 샤오홍슈 계정 지표 | **받은 좋아요와 찜 16.2만** (2026.08 기준, 합계) | "누적 좋아요 16.2만" |
-| 올리브영 추천템 | **좋아요 7,833 / 저장 포함 9,600** | "9,600 likes" 단독 |
-| 팔로워 | 2.6만 (2026.07 기준) | — |
-| 브랜드 협업 | 100건 이상 (미집계) | 정확한 건수 단정 |
-| 개인 유튜브 | 최고 도달 구독자 9,500명 | "1만 명" 반올림 |
-
----
-
-## 알려진 제약
-
-**KNN 수상작 영상은 현재 유튜브 임베드가 막혀 있다** (오류 153 — 퍼가기 비활성).
-지금은 세로 포스터 + 링크아웃으로 처리했다.
-
-페이지 안에서 바로 재생시키려면:
-1. YouTube 스튜디오 → 해당 영상 → 수정 → **고급 설정 → "퍼가기 허용" 체크**
-2. `index.html`의 `<a class="feature__player">` 블록을 주석에 적힌 `<iframe>`으로 교체
-
-**개인 유튜브 채널 영상은 내려간 상태**라 링크를 걸지 않았다. 이력에 수치만 기재.
-
-**샤오홍슈는 외부 사이트 임베드를 지원하지 않는다.** 원본 게시물 링크로만 연결 가능.
-캡처 이미지를 추가하면 링크가 죽어도 증거가 남으므로, 여유가 되면
-게시물 화면(좋아요·저장 수가 보이게) 캡처를 `assets/`에 넣고 각 항목에 붙이면 좋다.
-
----
-
-## 구조
-
-```
-index.html                 단일 페이지
-style.css                  토큰 + 레이아웃 (기존 케이스파일 디자인 언어 상속)
-assets/knn-poster.jpg      KNN 수상작 세로 포스터 (유튜브 oardefault 1080x1920 원본)
-assets/guidebook/          F1 팝업 캠페인 제휴 가이드북 이미지
-```
+- [ ] https://wonjeongju.github.io/portfolio-jyp/ 접속 확인
+- [ ] PDF 열어서 페이지 넘김·빈 지면 확인
+- [ ] 수치 대조: 팔로워 2.6만 / **받은 좋아요·찜 16.2만**(누적 좋아요 아님) / 협업 100건 이상 / 좋아요 **7,833**(저장 포함 9,600) / 대만 구독자 **9,500명**(1만 아님)
+- [ ] 470만은 **채널 수치** — "제가 제안한 시리즈가 채널 누적 470만" 식으로만. "단독 성과가 아니다" 같은 부정문은 쓰지 않는다

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>매번 새로 하지 않도록, 구조를 먼저 만듭니다 — 주원정 케이스 파일</title>
+    <meta
+      name="description"
+      content="분석 → 초안 → 검토 → 수정. 반복되는 문서 작업을 4단계로 나누고, 품질 기준을 먼저 정의했습니다."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="매번 새로 하지 않도록, 구조를 먼저 만듭니다" />
+    <meta property="og:description" content="분석 → 초안 → 검토 → 수정. 반복되는 문서 작업을 4단계로 나누고, 품질 기준을 먼저 정의했습니다." />
+    <meta property="og:image" content="./assets/og-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="./assets/og-cover.png" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23fbfbfa'/%3E%3Crect%20x='6'%20y='19'%20width='20'%20height='7'%20fill='%23ffd400'/%3E%3Ctext%20x='16'%20y='24'%20font-family='Helvetica,Arial,sans-serif'%20font-size='18'%20font-weight='800'%20text-anchor='middle'%20fill='%23131313'%3EJ%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">본문으로 건너뛰기</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="./index.html">
+          <span>주원정</span><span class="en">Joo&nbsp;Wonjeong</span>
+        </a>
+        <nav class="site-nav" aria-label="주요 섹션">
+          <ul>
+            <li><a href="./index.html#cases">케이스</a></li>
+            <li><a href="./index.html#works">프로젝트</a></li>
+            <li><a href="./index.html#more">수상</a></li>
+            <li><a href="./index.html#about">소개</a></li>
+            <li><a href="./index.html#contact">연락처</a></li>
+          </ul>
+        </nav>
+      </div>
+      <nav class="chipbar chipbar--detail" aria-label="바로가기">
+        <ul>
+          <li><a href="./index.html">← 홈</a></li>
+          <li><a href="./index.html">홈</a></li>
+          <li><a href="./index.html#contact">연락처</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <div class="detail-hero wrap">
+        <a class="back-link" href="./index.html"
+          ><span aria-hidden="true">←</span> 홈</a
+        >
+        <h1>매번 새로 하지 않도록, 구조를 먼저 만듭니다</h1>
+        <p class="subtitle">분석 → 초안 → 검토 → 수정. 반복되는 문서 작업을 4단계로 나누고, 품질 기준을 먼저 정의했습니다.</p>
+        <div class="detail-meta">
+          <span>파이프라인 설계</span>
+          <span>품질 게이트</span>
+          <span>문서 자동화</span>
+        </div>
+      </div>
+
+      <div class="detail-body wrap">
+        <section class="block">
+          <h2 class="vh">왜 나눴나</h2>
+          <div class="prose">
+            <p>
+              한 번에 요청하면 결과가 들쭉날쭉했습니다. 어느 지점에서 무너지는지 확인하고, 판단이 필요한 곳마다 끊었습니다.
+            </p>
+            <p>
+              가장 먼저 만든 건 프롬프트가 아니라 채점 기준이었습니다. 무엇이 좋은 결과인지 정의하지 않으면 고칠 수도 없습니다.
+            </p>
+          </div>
+        </section>
+
+        <section class="block">
+          <h2 class="vh">품질 기준</h2>
+          <div class="prose">
+            <p>12개 기준을 3층으로 나눴습니다.</p>
+          </div>
+
+          <div class="result-box">
+            <ul class="result-list">
+              <li><b>1층 · 거를 이유 제거</b> 동문서답 없음 · 형식 무결 · 근거 없는 주장 없음 · 과장 없음</li>
+              <li><b>2층 · 뽑을 이유 생성</b> 스왑 테스트 · 10초 테스트 · 상대 관점 · 면접 질문 유발 · 한 사람으로 읽힘</li>
+              <li><b>3층 · 독자 적합</b> 비전문가 이해 가능 · 키워드 가시성</li>
+            </ul>
+            <p class="mt-s3">
+              50점 만점으로 채점하고, 44점 미만이면 수정 후 재검토합니다. 최대 2회.
+            </p>
+          </div>
+        </section>
+
+        <section class="block">
+          <h2 class="vh">각 단계</h2>
+          <div class="prose prose--steps">
+            <p><b>① ANALYSIS · 분석</b>대상을 조사하고, 요구 역량을 뽑고, 가진 경험 중 무엇을 쓸지 고르고, 어디에 배치할지 설계합니다.</p>
+            <p><b>② DRAFT · 초안</b>분석 결과만 보고 씁니다. 흐름에만 집중합니다.</p>
+            <p><b>③ REVIEW · 검토</b>새로 쓰지 않고 진단만 합니다. 12기준으로 채점하고 수정 우선순위를 정합니다.</p>
+            <p><b>④ REFINE · 수정</b>검토를 반영해 고치고, 완성되면 자동으로 저장합니다.</p>
+          </div>
+        </section>
+
+        <section class="block">
+          <h2 class="vh">옮기면</h2>
+          <div class="prose">
+            <p>첫 적용은 지원 문서 작성이었습니다. 구조는 그대로 옮겨집니다.</p>
+          </div>
+          <ul class="result-list">
+            <li>대상 조사 → 클라이언트 · 브랜드 사전 리서치</li>
+            <li>요구 역량 추출 → 브리프 해석 · 핵심 요구 정리</li>
+            <li>경험 매핑 → 레퍼런스 · 사례 라이브러리에서 선택</li>
+            <li>12기준 채점 → 제안서 · 크리에이티브 리뷰 기준</li>
+            <li>44점 게이트 → 내부 검수 통과 기준</li>
+          </ul>
+        </section>
+
+        <section class="block">
+          <h2 class="vh">결과</h2>
+          <div class="result-box">
+            <p class="block-label">결과</p>
+            <ul class="result-list">
+              <li>자기소개서 1편 작성 — 1주 → 1일</li>
+              <li>경험과 요구 역량을 하나하나 대조하던 일을 파이프라인이 대신합니다.</li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="casenav" aria-label="이동">
+          <a class="prev" href="./work-03-caprisun.html">
+            <span class="dir">← 이전</span>
+            <span class="t">없는 소비 순간을, 있는 행동에서 확장하다</span>
+          </a>
+          <a class="next" href="./index.html#more">
+            <span class="dir">다음 →</span>
+            <span class="t">수상</span>
+          </a>
+          <a class="casenav-back" href="./index.html">← 홈으로</a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <a class="brand" href="./index.html">
+          <span>주원정</span><span class="en">Joo&nbsp;Wonjeong</span>
+        </a>
+        <ul class="footer-nav">
+          <li><a href="./index.html#cases">케이스</a></li>
+          <li><a href="./index.html#works">프로젝트</a></li>
+          <li><a href="./index.html#more">수상</a></li>
+          <li><a href="./index.html#about">소개</a></li>
+          <li><a href="./index.html#contact">연락처</a></li>
+        </ul>
+        <div class="footer-meta">
+          <span>© 2026 주원정 Joo Wonjeong</span>
+          <span>Case File</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>
